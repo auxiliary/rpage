@@ -53,11 +53,12 @@ jQuery.fn.rPage = function () {
     	
     	this.isNextOrPrevLink = function(element)
     	{
-    		if (element.text() == "»" || element.text() == "«")
-    		{
-    			return true;
-    		}
-    		return false;
+            return (
+                element.hasClass('pagination-prev')
+                || element.hasClass('pagination-next')
+                || element.text() == "»"
+                || element.text() == "«"
+            );
     	}
     	
     	this.isRemovable = function(element)
