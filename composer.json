@@ -1,0 +1,21 @@
+{
+    "name": "auxiliary/rpage",
+    "description": "Highly responsive pagination for Bootstrap.",
+    "keywords": ["bootstrap", "css"],
+    "homepage": "http://auxiliary.github.io/rpage/",
+    "authors": [
+        {
+            "name":     "auxiliary",
+            "homepage": "https://github.com/auxiliary"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/auxiliary/rpage/issues"
+    },
+    "license": "GPL-2.0",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
