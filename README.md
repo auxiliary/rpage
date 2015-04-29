@@ -1,4 +1,4 @@
-rpage
+rpage (http://auxiliary.github.io/rpage/)
 =====
 
 Highly responsive pagination for Bootstrap
