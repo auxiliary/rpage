@@ -1,0 +1,19 @@
+{
+  "name": "rpage",
+  "description": "Highly responsive pagination for Bootstrap.",
+  "version": "1.0.0",
+  "keywords": [
+    "js",
+    "responsive",
+    "bootstrap",
+    "plugin"
+  ],
+  "homepage": "http://auxiliary.github.io/rpage/",
+  "main": [
+    "responsive-paginate.js"
+  ],
+  "dependencies": {
+    "bootstrap": ">= 3.0.0",
+    "jquery": ">= 1.9.1"
+  }
+}
