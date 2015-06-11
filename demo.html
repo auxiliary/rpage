@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rPage Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="./javascripts/responsive-paginate.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.fn.generateRandomPagination = function(options)
+            {
+                var content = '<li class="left-etc"><a href="#">&laquo;</a></li>';
+                for (var i = 1; i <= options.max_value; i++)
+                {
+                    if (i == options.selected_value)
+                        content += '<li class="active"><span>' + i + '</span></li>';
+                    else
+                        content += '<li><a href="">' + i + '</a></li>';
+                }
+                content += '<li><a href="#">&raquo;</a></li>';
+                $(this).html(content);
+            }
+
+            var i = 50;
+            $(".pagination").each(function(){
+                $(this).generateRandomPagination({
+                    max_value: 100,
+                    selected_value: i
+                });
+                i += 49;
+            });
+
+            $(".pagination").rPage();
+        });
+    </script>
+</head>
+<body>
+    <div style="position: relative; width: 80%; background-color: #f5f5f5; margin: 0 auto; text-align: center; margin-top: 250px;">
+        <ul class="pagination"></ul>
+    </div>
+</body>
+</html>
