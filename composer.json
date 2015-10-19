@@ -16,6 +16,12 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
+        },
+        "component": {
+            "name": "rpage",
+            "scripts": [
+                "responsive-paginate.js"
+            ]
         }
     }
 }
