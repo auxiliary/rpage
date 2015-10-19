@@ -13,9 +13,6 @@
         "issues": "https://github.com/auxiliary/rpage/issues"
     },
     "license": "GPL-2.0",
-    "require": {
-        "robloach/component-installer": "*"
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
