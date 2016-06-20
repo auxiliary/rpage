@@ -1,7 +1,7 @@
 rpage 
 =====
 
-Highly responsive pagination for Bootstrap (http://auxiliary.github.io/rpage/)
+Highly responsive pagination for Bootstrap 4 (http://auxiliary.github.io/rpage/)
 
 ### [Demo](http://auxiliary.github.io/rpage/demo.html)
 
