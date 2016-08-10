@@ -161,8 +161,14 @@
     	    	var width = 0;
     	    	for (var i = 0; i < $container.find("li").length; i++)
     	    	{
-    	    		width += $container.find("li").eq(i).children("a").eq(0).outerWidth();
-    	    		width += $container.find("li").eq(i).children("span").eq(0).outerWidth();
+    	    		var a       = $container.find("li").eq(i).children("a").eq(0).outerWidth();
+                    var span    = $container.find("li").eq(i).children("span").eq(0).outerWidth();
+                    if(typeof a !== 'undefined' && a > 0) {
+                        width += a;
+                    }
+                    if(typeof span !== 'undefined' && span > 0) {
+                        width += span;
+                    }
     	    	}
     	    	return width;
     	    }
