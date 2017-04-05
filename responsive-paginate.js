@@ -161,8 +161,12 @@
     	    	var width = 0;
     	    	for (var i = 0; i < $container.find("li").length; i++)
     	    	{
-    	    		width += $container.find("li").eq(i).children("a").eq(0).outerWidth();
-    	    		width += $container.find("li").eq(i).children("span").eq(0).outerWidth();
+                    if($container.find("li").eq(i).children("a").eq(0).length > 0){
+                        width += $container.find("li").eq(i).children("a").eq(0).outerWidth();
+                    }
+                    if($container.find("li").eq(i).children("span").eq(0).length > 0){
+                        width += $container.find("li").eq(i).children("span").eq(0).outerWidth();
+                    }
     	    	}
     	    	return width;
     	    }
