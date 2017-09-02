@@ -13,12 +13,19 @@
 
         function rPage($container)
         {
+            // maybe user can pre-define this later
+            this.nextprev_class = ["prev", "next"];
+            this.nextprev_text = ["prev", "next", "»", "«"];
+            this.dots_class = ["dots"];
+            this.dots_text = ["..."];
+
         	this.label = function()
         	{
         		var active_index = this.els.filter(".active").index();
         		var rp = this;
         		this.els.each(function(){
-        			if (rp.isNextOrPrevLink($(this)) == false)
+                    //if (rp.isNextOrPrevLink($(this)) == false)
+                    if (!rp.isNextOrPrevLink($(this)))
         			{
         				$(this).addClass("page-away-" + (Math.abs(active_index - $(this).index())).toString());
         			}
@@ -36,6 +43,23 @@
         		});
         	}
 
+            this.compareText = function(text, str)
+            {
+                if (!text) return;
+
+                var regex = new RegExp(
+                        "("
+                        + str
+                            .join('@')
+                            .replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
+                            .replace(/@/g, "|")
+                        + ")",
+                        'gi'
+                    );
+
+                return text.match(regex);
+            }
+
         	this.makeResponsive = function()
     	    {
     	    	this.reset();
@@ -52,15 +76,27 @@
     	    	}
     	    }
 
-        	this.isNextOrPrevLink = function(element)
+            this.isNextOrPrevLink = function(element)
+            {
+                return (
+                    this.compareText(element.attr("class"), this.nextprev_class)
+                    || this.compareText(element.text(), this.nextprev_text)
+                );
+            }
+
+        	/*
+            this.isNextOrPrevLink = function(element)
         	{
                 return (
-                    element.hasClass('pagination-prev')
-                    || element.hasClass('pagination-next')
-                    || element.text() == "»"
-                    || element.text() == "«"
+                    //element.hasClass('pagination-prev')
+                    //|| element.hasClass('pagination-next')
+                    element.is("[class*='prev']")
+                    || element.is("[class*='next']")
+                    || element.text().trim() == "»"
+                    || element.text().trim() == "«"
                 );
         	}
+            */
 
         	this.isRemovable = function(element)
         	{
@@ -73,11 +109,14 @@
         		{
         			return false;
         		}
-        		if (element.text() == "...")
+                /*
+                if (element.text().trim() == "...")
         		{
         			return false;
         		}
         		return true;
+                */
+                return !this.compareText(element.attr("class"), this.dots_class) && !this.compareText(element.text(), this.dots_text);
         	}
 
     	    this.removeOne = function()
@@ -103,11 +142,11 @@
     			    			candid_candidate.css("display", "none");
     			    			if (this.needsEtcSign(active_index, farthest_index - 1))
     			    			{
-    			    				this.els.eq(farthest_index - 2).before("<li class='disabled removable'><span>...</span></li>");
+    			    				this.els.eq(farthest_index - 2).before("<li class='disabled removable'><span>" + this.dots_text + "</span></li>");
     			    			}
     			    			if (this.needsEtcSign(1, active_index))
     			    			{
-    			    				this.els.eq(1).after("<li class='disabled removable'><span>...</span></li>");
+    			    				this.els.eq(1).after("<li class='disabled removable'><span>" + this.dots_text + "</span></li>");
     			    			}
     			    			return true;
     		    			}
@@ -130,11 +169,13 @@
     	    		for (var i = el1_index + 1; i < el2_index; i++)
     	    		{
     	    			var el = $container.find("li").eq(i);
-    	    			if (el.css("display") == "none")
+    	    			//if (el.css("display") == "none")
+                        if (el.is(':hidden'))
     	    			{
     	    				hasHiddenElement = true;
     	    			}
-    	    			if (el.text() == "...")
+    	    			//if (el.text().trim() == "...")
+                        if (this.compareText(el.attr("class"), this.dots_class) || this.compareText(el.text(), this.dots_text))
     	    			{
     	    				hasEtcSign = true;
     	    			}
@@ -149,16 +190,24 @@
 
     	    this.reset = function()
     	    {
-    	    	for (var i = 0; i < this.els.length; i++)
+    	    	/*
+                for (var i = 0; i < this.els.length; i++)
     	    	{
     	    		this.els.eq(i).css("display", "inline");
     	    	}
-    	    	$container.find("li").filter(".removable").remove();
+                $container.find("li").filter(".removable").remove();
+                */
+                $(this.els)
+                    .css("display", "inline")
+                    .filter(".removable")
+                    .remove();
     	    }
 
     	    this.calculateWidth = function()
     	    {
-    	    	var width = 0;
+    	    	return $container.outerWidth();
+                /*
+                var width = 0;
     	    	for (var i = 0; i < $container.find("li").length; i++)
     	    	{
               width += $container.find("li").eq(i).children("a").length
@@ -167,19 +216,24 @@
                 && $container.find("li").eq(i).children("span").eq(0).outerWidth();
     	    	}
     	    	return width;
+                */
     	    }
 
     	    this.els = $container.find("li");
     	    this.label();
     	    this.makeResponsive();
 
-    	    var resize_timer;
+    	    //var resize_timer;
 
             $(window).resize(
             	$.proxy(function()
             	{
+                    // realtime, to avoid delay
+                    this.makeResponsive();
+                    /*
             		clearTimeout(resize_timer);
             		resize_timer = setTimeout($.proxy(function(){this.makeResponsive()}, this), 100);
+                    */
             	}, this)
             );
         }
