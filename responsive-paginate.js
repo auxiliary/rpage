@@ -41,7 +41,7 @@
     	    	this.reset();
     	    	var width = this.calculateWidth();
 
-    	    	while (width > this.els.parent().parent().outerWidth() - 10)
+    	    	while (width > this.els.parent().parent().width() - 10)
     	    	{
     	    		var did_remove = this.removeOne();
     	    		if (did_remove == false)
