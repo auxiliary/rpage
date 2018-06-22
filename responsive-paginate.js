@@ -41,7 +41,7 @@
     	    	this.reset();
     	    	var width = this.calculateWidth();
 
-    	    	while (width > this.els.parent().parent().outerWidth() - 10)
+    	    	while (width > this.els.parent().parent().width() - 10)
     	    	{
     	    		var did_remove = this.removeOne();
     	    		if (did_remove == false)
@@ -156,20 +156,23 @@
     	    	$container.find("li").filter(".removable").remove();
     	    }
 
-    	    this.calculateWidth = function()
-    	    {
-    	    	var width = 0;
-    	    	for (var i = 0; i < $container.find("li").length; i++)
-    	    	{
-                    if($container.find("li").eq(i).children("a").eq(0).length > 0){
-                        width += $container.find("li").eq(i).children("a").eq(0).outerWidth();
-                    }
-                    if($container.find("li").eq(i).children("span").eq(0).length > 0){
-                        width += $container.find("li").eq(i).children("span").eq(0).outerWidth();
-                    }
-    	    	}
-    	    	return width;
-    	    }
+            this.calculateWidth = function() 
+            { 
+                var width = 0; 
+                for (var i = 0; i < $container.find("li").length; i++) 
+                { 
+                    if(!($container.find("li").eq(i).css('display') == 'none')) 
+                    { 
+                        if($container.find("li").eq(i).children("a").eq(0).length > 0){
+                            width += $container.find("li").eq(i).children("a").eq(0).outerWidth();
+                        }
+                        if($container.find("li").eq(i).children("span").eq(0).length > 0){
+                            width += $container.find("li").eq(i).children("span").eq(0).outerWidth();
+                        }                   
+                    } 
+                } 
+                return width; 
+            }
 
     	    this.els = $container.find("li");
     	    this.label();
